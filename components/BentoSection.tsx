@@ -195,9 +195,9 @@ function CalendarBento() {
 
           {/* Calendar preview */}
           <div className="absolute left-[43%] top-7 transition-all duration-500 ease-out md:-right-14 md:left-auto md:group-hover:-right-12 md:group-hover:top-5">
-            <div className="h-[278px] w-[550px] rounded-[20px] border border-black/10 p-2 transition-colors duration-300 group-hover:border-indigo-400">
+            <div className="h-[230px] w-[430px] rounded-[20px] border border-black/10 p-2 transition-colors duration-300 group-hover:border-indigo-400">
               <div
-                className="h-full rounded-xl border-2 border-black/[0.03] bg-[#EDEEF0] p-3"
+                className="h-full overflow-hidden rounded-xl border-2 border-black/[0.03] bg-[#EDEEF0] p-3"
                 style={{
                   boxShadow:
                     "0px 2px 1.5px 0px rgba(165,174,184,0.32) inset",
@@ -217,7 +217,7 @@ function CalendarBento() {
                   </p>
                 </div>
 
-                <div className="mt-4 grid grid-cols-7 gap-2 px-4">
+                <div className="mt-2 grid grid-cols-7 gap-1 px-2">
                   <CalendarDays
                     firstDayOfWeek={calendar.firstDayOfWeek}
                     daysInMonth={calendar.daysInMonth}
@@ -261,10 +261,10 @@ function ToolboxBento() {
           >
             <div
               className={`rounded-[20px] border border-black/10 p-2 transition-all duration-500 group-hover:border-indigo-400 ${index === 2
-                  ? "delay-0 group-hover:-translate-y-3"
-                  : index === 1 || index === 3
-                    ? "delay-100 group-hover:-translate-y-3"
-                    : "delay-200 group-hover:-translate-y-3"
+                ? "delay-0 group-hover:-translate-y-3"
+                : index === 1 || index === 3
+                  ? "delay-100 group-hover:-translate-y-3"
+                  : "delay-200 group-hover:-translate-y-3"
                 }`}
               style={{
                 width: index === 2 ? 130 : 110,
