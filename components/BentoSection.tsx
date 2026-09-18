@@ -234,76 +234,82 @@ function CalendarBento() {
 
 function ToolboxBento() {
   return (
-    <BentoCard height="h-[180px] md:h-[260px]">
-      {/* Left fade */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-1/5 bg-gradient-to-r from-white to-transparent" />
+    <a
+      href="/toolbox"
+      className="block"
+      aria-label="Open my toolbox"
+    >
+      <BentoCard height="h-[180px] md:h-[260px]">
+        {/* Left fade */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-1/5 bg-gradient-to-r from-white to-transparent" />
 
-      {/* Right fade */}
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-1/5 bg-gradient-to-l from-white to-transparent" />
+        {/* Right fade */}
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-1/5 bg-gradient-to-l from-white to-transparent" />
 
-      {/* Heading */}
-      <div className="relative z-20 text-center">
-        <h2 className="text-base font-medium text-neutral-900">
-          Toolbox
-        </h2>
+        {/* Heading */}
+        <div className="relative z-20 text-center">
+          <h2 className="text-base font-medium text-neutral-900">
+            Toolbox
+          </h2>
 
-        <p className="mt-1 text-sm text-neutral-500">
-          Check out my favorite tools and spots around the web.
-        </p>
-      </div>
+          <p className="mt-1 text-sm text-neutral-500">
+            Check out my favorite tools and spots around the web.
+          </p>
+        </div>
 
-      {/* Tools */}
-      <div className="mt-auto mb-4 flex items-center justify-center gap-3 transition-all duration-500 ease-in-out">
-        {tools.map((tool, index) => (
-          <div
-            key={tool.title}
-            className="group inline-block text-center"
-          >
+        {/* Tools */}
+        <div className="mt-auto mb-4 flex items-center justify-center gap-3 transition-all duration-500 ease-in-out">
+          {tools.map((tool, index) => (
             <div
-              className={`rounded-[20px] border border-black/10 p-2 transition-all duration-500 group-hover:border-indigo-400 ${index === 2
-                ? "delay-0 group-hover:-translate-y-3"
-                : index === 1 || index === 3
-                  ? "delay-100 group-hover:-translate-y-3"
-                  : "delay-200 group-hover:-translate-y-3"
-                }`}
-              style={{
-                width: index === 2 ? 130 : 110,
-                height: index === 2 ? 130 : 110,
-              }}
+              key={tool.title}
+              className="group inline-block text-center"
             >
               <div
-                className="grid h-full place-items-center rounded-xl border-2 border-black/[0.03] bg-[#EDEEF0]"
+                className={`rounded-[20px] border border-black/10 p-2 transition-all duration-500 group-hover:border-indigo-400 ${index === 2
+                  ? "delay-0 group-hover:-translate-y-3"
+                  : index === 1 || index === 3
+                    ? "delay-100 group-hover:-translate-y-3"
+                    : "delay-200 group-hover:-translate-y-3"
+                  }`}
                 style={{
-                  boxShadow:
-                    "0px 2px 1.5px 0px rgba(165,174,184,0.32) inset",
+                  width: index === 2 ? 130 : 110,
+                  height: index === 2 ? 130 : 110,
                 }}
               >
-                {tool.type === "simple" ? (
-                  <svg
-                    role="img"
-                    aria-label={tool.title}
-                    viewBox="0 0 24 24"
-                    className={
-                      index === 2
-                        ? "h-[46px] w-[46px]"
-                        : "h-10 w-10"
-                    }
-                    fill={`#${tool.icon.hex}`}
-                  >
-                    <path d={tool.icon.path} />
-                  </svg>
-                ) : (
-                  <tool.icon
-                    size={index === 2 ? 46 : 40}
-                    strokeWidth={1.8}
-                  />
-                )}
+                <div
+                  className="grid h-full place-items-center rounded-xl border-2 border-black/[0.03] bg-[#EDEEF0]"
+                  style={{
+                    boxShadow:
+                      "0px 2px 1.5px 0px rgba(165,174,184,0.32) inset",
+                  }}
+                >
+                  {tool.type === "simple" ? (
+                    <svg
+                      role="img"
+                      aria-label={tool.title}
+                      viewBox="0 0 24 24"
+                      className={
+                        index === 2
+                          ? "h-[46px] w-[46px]"
+                          : "h-10 w-10"
+                      }
+                      fill={`#${tool.icon.hex}`}
+                    >
+                      <path d={tool.icon.path} />
+                    </svg>
+                  ) : (
+                    <tool.icon
+                      size={index === 2 ? 46 : 40}
+                      strokeWidth={1.8}
+                    />
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </BentoCard>
+          ))}
+        </div>
+      </BentoCard>
+    </a>
   );
 }
 
