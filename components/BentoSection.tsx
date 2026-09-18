@@ -1,39 +1,42 @@
 "use client";
 
 import { useEffect, useMemo } from "react";
-import { ArrowUpRight, CalendarDays } from "lucide-react";
-import "@calcom/embed-react";
+import { Code2 } from "lucide-react";
+
+import {
+  siFastapi,
+  siDocker,
+  siNextdotjs,
+  siGithub,
+} from "simple-icons";
+
+import { BentoCard } from "./BentoCard";
 
 const tools = [
   {
-    name: "VS Code",
-    short: "VS",
-    description: "Code Editor",
-    className: "bg-[#007acc] text-white",
+    title: "VS Code",
+    type: "lucide" as const,
+    icon: Code2,
   },
   {
-    name: "FastAPI",
-    short: "F",
-    description: "Python API",
-    className: "bg-[#009688] text-white",
+    title: "FastAPI",
+    type: "simple" as const,
+    icon: siFastapi,
   },
   {
-    name: "Docker",
-    short: "D",
-    description: "Containers",
-    className: "bg-[#2496ed] text-white",
+    title: "Docker",
+    type: "simple" as const,
+    icon: siDocker,
   },
   {
-    name: "Next.js",
-    short: "N",
-    description: "React Framework",
-    className: "bg-black text-white",
+    title: "Next.js",
+    type: "simple" as const,
+    icon: siNextdotjs,
   },
   {
-    name: "GitHub",
-    short: "GH",
-    description: "Code Hosting",
-    className: "bg-[#24292f] text-white",
+    title: "GitHub",
+    type: "simple" as const,
+    icon: siGithub,
   },
 ];
 
@@ -47,27 +50,43 @@ const dayNames = [
   "SAT",
 ];
 
-function CalendarCard() {
-  const calendar = useMemo(() => {
-    const date = new Date();
+function ShadowBox({
+  children,
+  width,
+  height,
+}: {
+  children: React.ReactNode;
+  width: number;
+  height: number;
+}) {
+  return (
+    <div
+      className="rounded-[20px] border border-black/10 p-2"
+      style={{
+        width,
+        height,
+      }}
+    >
+      <div
+        className="grid h-full place-items-center rounded-xl border-2 border-black/[0.03] bg-[#EDEEF0]"
+        style={{
+          boxShadow:
+            "0px 2px 1.5px 0px rgba(165,174,184,0.32) inset",
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
 
-    const year = date.getFullYear();
-    const month = date.getMonth();
-
-    return {
-      year,
-      monthName: date.toLocaleString("default", {
-        month: "long",
-      }),
-      firstDay: new Date(year, month, 1).getDay(),
-      daysInMonth: new Date(
-        year,
-        month + 1,
-        0,
-      ).getDate(),
-    };
-  }, []);
-
+function CalendarDays({
+  firstDayOfWeek,
+  daysInMonth,
+}: {
+  firstDayOfWeek: number;
+  daysInMonth: number;
+}) {
   const highlightedDays = new Set([
     1,
     2,
@@ -82,181 +101,205 @@ function CalendarCard() {
   ]);
 
   return (
+    <>
+      {dayNames.map((day) => (
+        <div
+          key={`header-${day}`}
+          className="flex h-8 w-8 items-center justify-center"
+        >
+          <span className="text-[11px] font-medium text-gray-400">
+            {day}
+          </span>
+        </div>
+      ))}
+
+      {Array(firstDayOfWeek)
+        .fill(null)
+        .map((_, index) => (
+          <div
+            key={`empty-${index}`}
+            className="h-8 w-8"
+          />
+        ))}
+
+      {Array(daysInMonth)
+        .fill(null)
+        .map((_, index) => {
+          const day = index + 1;
+          const highlighted = highlightedDays.has(day);
+
+          return (
+            <div
+              key={`day-${day}`}
+              className={`flex h-8 w-8 items-center justify-center rounded text-sm ${highlighted
+                ? "bg-white text-gray-500 shadow-sm"
+                : "text-gray-400"
+                }`}
+            >
+              {day}
+            </div>
+          );
+        })}
+    </>
+  );
+}
+
+function CalendarBento() {
+  const calendar = useMemo(() => {
+    const currentDate = new Date();
+
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+
+    return {
+      year,
+      monthName: currentDate.toLocaleString("default", {
+        month: "long",
+      }),
+      firstDayOfWeek: new Date(
+        year,
+        month,
+        1,
+      ).getDay(),
+      daysInMonth: new Date(
+        year,
+        month + 1,
+        0,
+      ).getDate(),
+    };
+  }, []);
+
+  return (
     <button
       type="button"
       data-cal-link="shishir-dxpp1j/30min"
-      data-cal-config='{"layout":"month_view","theme":"dark","hideEventTypeDetails":false}'
+      data-cal-config='{"layout":"month_view","theme":"light","hideEventTypeDetails":false}'
       aria-label="Book a 30 minute call with Shishir"
-      className="group relative h-full w-full overflow-hidden rounded-2xl border border-black/10 bg-white text-left"
+      className="w-full text-left"
     >
-      {/* Text */}
-      <div className="relative z-20 flex h-full w-[42%] flex-col p-7 md:p-8">
-        <h2 className="text-xl font-medium tracking-tight text-neutral-900 md:text-2xl">
-          Book a call with me
-        </h2>
+      <BentoCard
+        height="h-[180px] md:h-[260px]"
+        showHoverGradient
+      >
+        <div className="group grid h-full grid-cols-12 gap-5">
+          {/* Left content */}
+          <div className="relative z-40 col-span-5 text-balance">
+            <h2 className="mb-4 text-base font-medium text-neutral-900">
+              Book a call with me
+            </h2>
 
-        <p className="mt-5 max-w-[210px] text-base leading-7 text-neutral-500 md:text-lg">
-          I&apos;d love to chat even if there&apos;s no agenda!
-        </p>
+            <p className="mb-2 max-w-[220px] text-sm leading-6 text-neutral-500">
+              I&apos;d love to chat even if there&apos;s no agenda!
+            </p>
+          </div>
 
-        <span className="mt-auto inline-flex w-fit items-center gap-2 text-sm font-medium text-neutral-700 transition-colors group-hover:text-indigo-500">
-          Let&apos;s connect
-          <ArrowUpRight
-            size={15}
-            strokeWidth={1.7}
-            className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-          />
-        </span>
-      </div>
+          {/* Calendar preview */}
+          <div className="absolute left-[43%] top-7 transition-all duration-500 ease-out md:-right-14 md:left-auto md:group-hover:-right-12 md:group-hover:top-5">
+            <div className="h-[278px] w-[550px] rounded-[20px] border border-black/10 p-2 transition-colors duration-300 group-hover:border-indigo-400">
+              <div
+                className="h-full rounded-xl border-2 border-black/[0.03] bg-[#EDEEF0] p-3"
+                style={{
+                  boxShadow:
+                    "0px 2px 1.5px 0px rgba(165,174,184,0.32) inset",
+                }}
+              >
+                <div className="flex items-center space-x-2">
+                  <p className="text-sm text-gray-500">
+                    <span className="font-medium">
+                      {calendar.monthName}, {calendar.year}
+                    </span>
+                  </p>
 
-      {/* Calendar preview */}
-      <div className="absolute left-[35%] top-8 h-[265px] w-[520px] max-w-[62%] transition-transform duration-500 ease-out group-hover:-translate-y-1">
-        <div className="h-full rounded-[20px] border border-indigo-300 bg-white p-2 shadow-sm">
-          <div
-            className="h-full rounded-xl border-2 border-black/[0.03] bg-[#edeef0] p-4"
-            style={{
-              boxShadow:
-                "0px 2px 2px rgba(165,174,184,0.32) inset",
-            }}
-          >
-            {/* Header */}
-            <div className="flex items-center gap-2">
-              <CalendarDays
-                size={16}
-                className="text-indigo-500"
-                strokeWidth={1.6}
-              />
+                  <span className="h-1 w-1 rounded-full bg-gray-400" />
 
-              <p className="text-sm text-gray-500">
-                <span className="font-medium">
-                  {calendar.monthName}, {calendar.year}
-                </span>
-              </p>
-
-              <span className="h-1 w-1 rounded-full bg-gray-400" />
-
-              <p className="text-xs text-gray-400">
-                30 min call
-              </p>
-            </div>
-
-            {/* Calendar grid */}
-            <div className="mt-4 grid grid-cols-7 gap-x-2 gap-y-1 px-2">
-              {dayNames.map((day) => (
-                <div
-                  key={day}
-                  className="flex h-8 items-center justify-center"
-                >
-                  <span className="text-[11px] font-medium text-gray-400">
-                    {day}
-                  </span>
+                  <p className="text-xs text-gray-400">
+                    30 min call
+                  </p>
                 </div>
-              ))}
 
-              {Array.from({
-                length: calendar.firstDay,
-              }).map((_, index) => (
-                <div
-                  key={`empty-${index}`}
-                  className="h-8"
-                />
-              ))}
-
-              {Array.from({
-                length: calendar.daysInMonth,
-              }).map((_, index) => {
-                const day = index + 1;
-
-                const highlighted =
-                  highlightedDays.has(day);
-
-                return (
-                  <div
-                    key={day}
-                    className={`flex h-8 items-center justify-center rounded-md text-sm ${
-                      highlighted
-                        ? "bg-white text-gray-500 shadow-sm"
-                        : "text-gray-400"
-                    }`}
-                  >
-                    {day}
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Calendar arrow */}
-            <div className="absolute bottom-4 right-4 flex h-9 w-9 items-center justify-center rounded-full bg-indigo-100 text-indigo-500 shadow-sm">
-              <ArrowUpRight
-                size={18}
-                strokeWidth={1.7}
-              />
+                <div className="mt-4 grid grid-cols-7 gap-2 px-4">
+                  <CalendarDays
+                    firstDayOfWeek={calendar.firstDayOfWeek}
+                    daysInMonth={calendar.daysInMonth}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </BentoCard>
     </button>
   );
 }
 
-function ToolboxCard() {
+function ToolboxBento() {
   return (
-    <div className="group relative h-full overflow-hidden rounded-2xl border border-black/10 bg-white">
+    <BentoCard height="h-[180px] md:h-[260px]">
+      {/* Left fade */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-1/5 bg-gradient-to-r from-white to-transparent" />
+
+      {/* Right fade */}
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-1/5 bg-gradient-to-l from-white to-transparent" />
+
       {/* Heading */}
-      <div className="relative z-20 px-6 pt-7 text-center">
-        <h2 className="text-xl font-medium tracking-tight text-neutral-900 md:text-2xl">
+      <div className="relative z-20 text-center">
+        <h2 className="text-base font-medium text-neutral-900">
           Toolbox
         </h2>
 
-        <p className="mt-2 text-base text-neutral-500 md:text-lg">
-          Check out my favorite tools and technologies.
+        <p className="mt-1 text-sm text-neutral-500">
+          Check out my favorite tools and spots around the web.
         </p>
       </div>
 
-      {/* Left fade */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent" />
-
-      {/* Right fade */}
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent" />
-
       {/* Tools */}
-      <div className="absolute bottom-7 left-1/2 flex -translate-x-1/2 items-end gap-3">
-        {tools.map((tool, index) => (
-          <div
-            key={tool.name}
-            className={`group/tool shrink-0 transition-all duration-500 ${
-              index === 2
-                ? "translate-y-0"
-                : "translate-y-2"
-            } hover:-translate-y-3`}
-          >
+      <div className="mt-auto mb-[-10px] flex items-center justify-center gap-3 transition-all duration-500">
+        {tools.map((tool, index) => {
+          return (
             <div
-              className={`rounded-[20px] border border-black/10 bg-white p-2 shadow-sm transition-colors duration-300 group-hover/tool:border-indigo-300 ${
-                index === 2
-                  ? "h-[120px] w-[120px]"
-                  : "h-[100px] w-[100px]"
-              }`}
+              key={tool.title}
+              aria-label={tool.title}
+              className={`group/tool inline-block shrink-0 text-center transition-all duration-500 ${index === 2
+                ? "translate-y-0"
+                : index === 1 || index === 3
+                  ? "translate-y-1"
+                  : "translate-y-2"
+                } hover:-translate-y-3`}
             >
-              <div className="grid h-full place-items-center rounded-xl border-2 border-black/[0.03] bg-[#edeef0]">
-                <div
-                  className={`flex items-center justify-center rounded-2xl font-semibold shadow-sm ${
-                    index === 2
-                      ? "h-14 w-14 text-xl"
-                      : "h-12 w-12 text-lg"
-                  } ${tool.className}`}
-                >
-                  {tool.short}
-                </div>
-              </div>
-            </div>
+              <ShadowBox
+                width={index === 2 ? 130 : 110}
+                height={index === 2 ? 130 : 110}
+              >
+                {tool.type === "simple" ? (
+                  <svg
+                    role="img"
+                    aria-label={tool.title}
+                    viewBox="0 0 24 24"
+                    className={
+                      index === 2
+                        ? "h-[46px] w-[46px]"
+                        : "h-10 w-10"
+                    }
+                    fill={`#${tool.icon.hex}`}
+                  >
+                    <path d={tool.icon.path} />
+                  </svg>
+                ) : (
+                  <tool.icon
+                    size={index === 2 ? 46 : 40}
+                    strokeWidth={1.8}
+                  />
+                )}
+              </ShadowBox>
 
-            <p className="mt-2 text-center text-xs font-medium text-neutral-400 opacity-0 transition-opacity duration-300 group-hover/tool:opacity-100">
-              {tool.name}
-            </p>
-          </div>
-        ))}
+              <p className="mt-2 text-xs text-gray-400 opacity-0 transition-opacity duration-300 group-hover/tool:opacity-100">
+                {tool.title}
+              </p>
+            </div>
+          );
+        })}
       </div>
-    </div>
+    </BentoCard>
   );
 }
 
@@ -264,7 +307,7 @@ export default function BentoSection() {
   useEffect(() => {
     let cancelled = false;
 
-    async function setupCal() {
+    async function initializeCal() {
       try {
         const { getCalApi } = await import(
           "@calcom/embed-react"
@@ -275,7 +318,7 @@ export default function BentoSection() {
         const cal = await getCalApi();
 
         cal("ui", {
-          theme: "dark",
+          theme: "light",
           styles: {
             branding: {
               brandColor: "#6366f1",
@@ -286,13 +329,13 @@ export default function BentoSection() {
         });
       } catch (error) {
         console.error(
-          "Failed to initialize Cal.com:",
+          "Cal.com initialization failed:",
           error,
         );
       }
     }
 
-    setupCal();
+    initializeCal();
 
     return () => {
       cancelled = true;
@@ -300,16 +343,11 @@ export default function BentoSection() {
   }, []);
 
   return (
-    <section className="border-t border-black/10">
+    <section className="relative">
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-24">
-        <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="h-[360px]">
-            <CalendarCard />
-          </div>
-
-          <div className="h-[360px]">
-            <ToolboxCard />
-          </div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <CalendarBento />
+          <ToolboxBento />
         </div>
       </div>
     </section>
