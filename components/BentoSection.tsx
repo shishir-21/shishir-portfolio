@@ -253,22 +253,30 @@ function ToolboxBento() {
       </div>
 
       {/* Tools */}
-      <div className="mt-auto mb-[-10px] flex items-center justify-center gap-3 transition-all duration-500">
-        {tools.map((tool, index) => {
-          return (
+      <div className="mt-auto mb-4 flex items-center justify-center gap-3 transition-all duration-500 ease-in-out">
+        {tools.map((tool, index) => (
+          <div
+            key={tool.title}
+            className="group inline-block text-center"
+          >
             <div
-              key={tool.title}
-              aria-label={tool.title}
-              className={`group/tool inline-block shrink-0 text-center transition-all duration-500 ${index === 2
-                ? "translate-y-0"
-                : index === 1 || index === 3
-                  ? "translate-y-1"
-                  : "translate-y-2"
-                } hover:-translate-y-3`}
+              className={`rounded-[20px] border border-black/10 p-2 transition-all duration-500 group-hover:border-indigo-400 ${index === 2
+                  ? "delay-0 group-hover:-translate-y-3"
+                  : index === 1 || index === 3
+                    ? "delay-100 group-hover:-translate-y-3"
+                    : "delay-200 group-hover:-translate-y-3"
+                }`}
+              style={{
+                width: index === 2 ? 130 : 110,
+                height: index === 2 ? 130 : 110,
+              }}
             >
-              <ShadowBox
-                width={index === 2 ? 130 : 110}
-                height={index === 2 ? 130 : 110}
+              <div
+                className="grid h-full place-items-center rounded-xl border-2 border-black/[0.03] bg-[#EDEEF0]"
+                style={{
+                  boxShadow:
+                    "0px 2px 1.5px 0px rgba(165,174,184,0.32) inset",
+                }}
               >
                 {tool.type === "simple" ? (
                   <svg
@@ -290,14 +298,10 @@ function ToolboxBento() {
                     strokeWidth={1.8}
                   />
                 )}
-              </ShadowBox>
-
-              <p className="mt-2 text-xs text-gray-400 opacity-0 transition-opacity duration-300 group-hover/tool:opacity-100">
-                {tool.title}
-              </p>
+              </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </BentoCard>
   );
