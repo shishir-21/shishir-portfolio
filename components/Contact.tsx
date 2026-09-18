@@ -227,7 +227,7 @@ export default function Contact() {
                 <p className="mt-8 text-sm leading-7 text-gray-400">
                   Based in India.
                   <br />
-                  Open to remote opportunities.
+                  Open to remote and onsite opportunities.
                 </p>
               </div>
 
