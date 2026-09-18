@@ -17,8 +17,11 @@ export default function Home() {
         <About />
         <Experience />
         <Projects />
-        <BentoSection />
+
         <GithubStats />
+
+        <BentoSection />
+
         <Contact />
       </main>
     </>

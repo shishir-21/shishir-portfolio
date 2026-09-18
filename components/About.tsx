@@ -21,7 +21,7 @@ export default function About() {
 
                     <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-neutral-100">
                         <Image
-                            src="/profile.jpg"
+                            src="/projects/profile.jpg"
                             alt="Shishir Mahato"
                             fill
                             className="object-cover"
