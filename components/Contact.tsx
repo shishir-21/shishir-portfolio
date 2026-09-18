@@ -159,157 +159,157 @@ const socials = [
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
-  const [copyStatus, setCopyStatus] = useState("");
 
   const email = "mahatoshishir6@gmail.com";
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(email);
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(email);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = email;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
 
       setCopied(true);
-      setCopyStatus("Email copied to clipboard.");
 
       setTimeout(() => {
         setCopied(false);
-        setCopyStatus("");
       }, 2000);
     } catch {
-      setCopyStatus("Unable to copy email.");
+      setCopied(false);
     }
   };
 
   return (
-    <section id="contact" className="border-t border-black/10">
-      <div className="mx-auto max-w-7xl px-4 py-20 md:px-6 md:py-28">
-        <div className="relative overflow-hidden rounded-2xl bg-[#111111] p-8 shadow-xl md:p-[72px]">
-          {/* Decorative frame */}
-          <div className="pointer-events-none absolute inset-0">
-            <div className="absolute left-0 right-0 top-8 h-px bg-zinc-700 md:top-12" />
-            <div className="absolute bottom-8 left-0 right-0 h-px bg-zinc-700 md:bottom-12" />
+    <section id="contact" className="relative pb-16">
+      <div className="mx-auto max-w-7xl px-4 md:px-6">
+        <div className="relative overflow-hidden rounded-2xl">
+          <div className="relative rounded-2xl bg-[#111111] p-14 shadow-md ring-1 ring-indigo-500/15 md:p-[100px]">
+            {/* Inner frame lines */}
+            <div className="absolute left-0 right-0 top-[34px] z-10 h-px bg-zinc-600 md:top-[48px]" />
 
-            <div className="absolute bottom-0 right-8 top-0 w-px bg-zinc-700 md:right-12" />
-            <div className="absolute bottom-0 left-8 top-0 w-px bg-zinc-700 md:left-12" />
+            <div className="absolute bottom-0 right-[34px] top-0 z-10 w-px bg-zinc-600 md:right-[48px]" />
 
-            {/* Top-left corner */}
-            <div className="absolute left-[42px] top-12 hidden h-2 w-px bg-zinc-300 md:block" />
-            <div className="absolute left-12 top-[42px] hidden h-px w-2 bg-zinc-300 md:block" />
+            <div className="absolute bottom-[34px] left-0 right-0 z-10 h-px bg-zinc-600 md:bottom-[48px]" />
 
-            {/* Top-right corner */}
-            <div className="absolute right-[42px] top-12 hidden h-2 w-px bg-zinc-300 md:block" />
-            <div className="absolute right-12 top-[42px] hidden h-px w-2 bg-zinc-300 md:block" />
+            <div className="absolute bottom-0 left-[34px] top-0 z-10 w-px bg-zinc-600 md:left-[48px]" />
 
-            {/* Bottom-left corner */}
-            <div className="absolute bottom-[42px] left-12 hidden h-px w-2 bg-zinc-300 md:block" />
-            <div className="absolute bottom-12 left-[42px] hidden h-2 w-px bg-zinc-300 md:block" />
+            {/* Top-right cross */}
+            <div className="absolute right-[44.5px] top-[48px] z-20 hidden h-px w-2 bg-zinc-300 md:block" />
+            <div className="absolute right-[48px] top-[44.5px] z-20 hidden h-2 w-px bg-zinc-300 md:block" />
 
-            {/* Bottom-right corner */}
-            <div className="absolute bottom-[42px] right-12 hidden h-px w-2 bg-zinc-300 md:block" />
-            <div className="absolute bottom-12 right-[42px] hidden h-2 w-px bg-zinc-300 md:block" />
-          </div>
+            {/* Top-left cross */}
+            <div className="absolute left-[44.5px] top-[48px] z-20 hidden h-px w-2 bg-zinc-300 md:block" />
+            <div className="absolute left-[48px] top-[44.5px] z-20 hidden h-2 w-px bg-zinc-300 md:block" />
 
-          <div className="relative z-10">
-            <h2 className="mb-8 text-3xl font-medium tracking-tight text-white md:text-4xl">
-              Get in touch
-            </h2>
+            {/* Bottom-left cross */}
+            <div className="absolute bottom-[48px] left-[44.5px] z-20 hidden h-px w-2 bg-zinc-300 md:block" />
+            <div className="absolute bottom-[44.5px] left-[48px] z-20 hidden h-2 w-px bg-zinc-300 md:block" />
 
-            <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
-              {/* Left side */}
-              <div className="lg:w-[58%]">
-                <p className="max-w-xl text-base leading-8 text-gray-300 md:text-lg">
-                  I&apos;m open to software engineering roles, full-stack
-                  opportunities, AI projects, and interesting problems.
-                  <br />
-                  If something I&apos;ve built resonates with you, drop me a
-                  message!
-                </p>
+            {/* Bottom-right cross */}
+            <div className="absolute bottom-[48px] right-[44.5px] z-20 hidden h-px w-2 bg-zinc-300 md:block" />
+            <div className="absolute bottom-[44.5px] right-[48px] z-20 hidden h-2 w-px bg-zinc-300 md:block" />
 
-                <p className="mt-8 text-sm leading-7 text-gray-400">
-                  Based in India.
-                  <br />
-                  Open to remote and onsite opportunities.
-                </p>
-              </div>
+            {/* Content */}
+            <div className="relative z-30">
+              <h2 className="mb-8 text-3xl font-medium text-slate-50 md:text-4xl">
+                Get in touch
+              </h2>
 
-              {/* Right side */}
-              <div className="flex flex-col lg:w-[300px]">
-                {/* Email CTA */}
-                <a
-                  href={`mailto:${email}`}
-                  className="group inline-flex w-fit items-center gap-2.5 rounded-xl bg-indigo-500 px-6 py-3.5 text-base font-medium text-white shadow-lg shadow-indigo-500/20 transition-all duration-300 hover:bg-indigo-400 hover:shadow-indigo-400/30"
-                >
-                  <MailIcon className="shrink-0" />
+              <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
+                {/* Left */}
+                <div className="flex flex-col justify-between lg:w-[65%]">
+                  <p className="max-w-[420px] text-base leading-8 text-gray-300">
+                    I&apos;m open to software engineering roles, full-stack
+                    opportunities, AI projects, and interesting problems.
+                    <br />
+                    If something I&apos;ve built resonates with you, drop me a
+                    message!
+                  </p>
 
-                  <span>Say Hello</span>
+                  <p className="mt-8 text-sm leading-7 text-gray-400">
+                    Based in India.
+                    <br />
+                    Open to remote and onsite opportunities.
+                  </p>
+                </div>
 
-                  <ArrowIcon className="shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
-                </a>
-
-                {/* Copy email */}
-                <button
-                  type="button"
-                  onClick={handleCopy}
-                  aria-label={`Copy email address ${email}`}
-                  className="mt-3 flex w-fit items-center gap-2 text-left text-sm text-gray-400 transition-colors hover:text-white"
-                  title="Copy email"
-                >
-                  <span>{email}</span>
-
-                  {copied ? (
-                    <CheckIcon className="text-indigo-400" />
-                  ) : (
-                    <CopyIcon className="text-gray-500" />
-                  )}
-
-                  <span className="text-gray-600">
-                    {copied ? "copied" : "copy"}
-                  </span>
-                </button>
-
-                {/* Accessible copy status */}
-                <p
-                  aria-live="polite"
-                  aria-atomic="true"
-                  className="sr-only"
-                >
-                  {copyStatus}
-                </p>
-
-                {/* Links */}
-                <div className="mt-6 flex flex-col border-t border-zinc-700/60 pt-3">
-                  {/* Resume */}
+                {/* Right */}
+                <div className="flex flex-col">
+                  {/* Email */}
                   <a
-                    href="/resume.pdf"
-                    download
-                    className="group flex items-center gap-3 rounded-lg py-2.5 text-base text-gray-300 transition-colors hover:text-white"
+                    href={`mailto:${email}`}
+                    className="group inline-flex w-fit items-center gap-2.5 rounded-xl bg-indigo-500 px-6 py-3.5 text-base font-medium text-white shadow-lg shadow-indigo-500/20 transition-all duration-300 hover:bg-indigo-400 hover:shadow-indigo-400/30"
                   >
-                    <FileIcon className="shrink-0 text-gray-500 transition-colors group-hover:text-indigo-300" />
+                    <MailIcon className="shrink-0" />
 
-                    <span>My Resume</span>
+                    <span>Say Hello</span>
 
-                    <ArrowIcon className="ml-auto text-gray-600 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:text-indigo-300 group-hover:opacity-100" />
+                    <ArrowIcon className="shrink-0 transition-transform duration-300 group-hover:translate-x-0.5" />
                   </a>
 
-                  {/* Social links */}
-                  {socials.map((social) => {
-                    const Icon = social.icon;
+                  {/* Copy email */}
+                  <button
+                    type="button"
+                    onClick={handleCopy}
+                    className="mt-3 flex w-fit items-center gap-2 text-sm text-gray-400 transition-colors hover:text-slate-50"
+                    title="Copy email"
+                  >
+                    <span>{email}</span>
 
-                    return (
-                      <a
-                        key={social.label}
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex items-center gap-3 rounded-lg py-2.5 text-base text-gray-300 transition-colors hover:text-white"
-                      >
-                        <Icon className="shrink-0 text-gray-500 transition-colors group-hover:text-indigo-300" />
+                    {copied ? (
+                      <CheckIcon className="text-indigo-400" />
+                    ) : (
+                      <CopyIcon className="text-gray-500" />
+                    )}
 
-                        <span>{social.label}</span>
+                    <span className="text-gray-600">
+                      {copied ? "copied" : "copy"}
+                    </span>
+                  </button>
 
-                        <ArrowIcon className="ml-auto text-gray-600 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:text-indigo-300 group-hover:opacity-100" />
-                      </a>
-                    );
-                  })}
+                  {/* Links */}
+                  <div className="mt-6 flex max-w-[260px] flex-col border-t border-zinc-700/60 pt-3">
+                    <a
+                      href="/resume.pdf"
+                      download
+                      className="group flex items-center gap-3 rounded-lg py-2.5 text-base text-gray-300 transition-colors hover:text-slate-50"
+                    >
+                      <FileIcon className="shrink-0 text-gray-500 transition-colors group-hover:text-indigo-300" />
+
+                      <span>My Resume</span>
+
+                      <ArrowIcon className="ml-auto text-gray-600 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:text-indigo-300 group-hover:opacity-100" />
+                    </a>
+
+                    {socials.map((social) => {
+                      const Icon = social.icon;
+
+                      return (
+                        <a
+                          key={social.label}
+                          href={social.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group flex items-center gap-3 rounded-lg py-2.5 text-base text-gray-300 transition-colors hover:text-slate-50"
+                        >
+                          <Icon className="shrink-0 text-gray-500 transition-colors group-hover:text-indigo-300" />
+
+                          <span>{social.label}</span>
+
+                          <ArrowIcon className="ml-auto text-gray-600 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:text-indigo-300 group-hover:opacity-100" />
+                        </a>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
