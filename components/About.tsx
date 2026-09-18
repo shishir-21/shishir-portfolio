@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function About() {
     return (
         <section id="about" className="border-t border-black/10">
@@ -17,11 +19,13 @@ export default function About() {
                 {/* Story 1 */}
                 <div className="mt-24 grid gap-12 md:mt-32 md:grid-cols-2 md:items-center md:gap-20">
 
-                    <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-neutral-100">
-                        <img
+                    <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-neutral-100">
+                        <Image
                             src="/profile.jpg"
                             alt="Shishir Mahato"
-                            className="h-full w-full object-cover"
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 50vw"
                         />
                     </div>
 
@@ -76,11 +80,13 @@ export default function About() {
 
                     </div>
 
-                    <div className="order-1 aspect-video overflow-hidden rounded-2xl bg-neutral-100 md:order-2">
-                        <img
+                    <div className="relative aspect-video overflow-hidden rounded-2xl bg-neutral-100">
+                        <Image
                             src="/projects/codefrog.png"
                             alt="CodeFrog AI"
-                            className="h-full w-full object-cover"
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 50vw"
                         />
                     </div>
 
