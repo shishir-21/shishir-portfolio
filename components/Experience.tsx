@@ -4,30 +4,30 @@ import { motion } from "framer-motion";
 
 const experiences = [
   {
-    period: "2026 — Present",
+    period: "Jun 2026 — Present",
     company: "ModelSuite AI",
-    role: "Full Stack Developer",
+    role: "Software Engineering Intern — Full Stack Development",
     description:
-      "Building full-stack features using the MERN stack, Google APIs and OAuth. Working on messaging and meeting-related features including Google Calendar and Google Meet integrations.",
+      "Building production-ready AI SaaS features using React, Node.js, Express and MongoDB. Working on messaging, meeting scheduling, Google Calendar, Google Meet, OAuth integrations and workflow automation.",
   },
   {
-    period: "2026 — Present",
-    company: "CodeFrog AI",
-    role: "AI Software Engineer",
+    period: "Feb 2026 — Apr 2026",
+    company: "Bluestock",
+    role: "Software Development Intern — SDE",
     description:
-      "Building an AI-powered developer platform for understanding and working with GitHub repositories using Next.js, FastAPI, PostgreSQL, pgvector and Docker.",
+      "Worked on a stock trading platform using React, Node.js, Django and PostgreSQL. Built REST APIs, worked with testing using Pytest and contributed to Agile development workflows.",
   },
   {
-    period: "2025",
+    period: "Jan 2025 — Mar 2025",
     company: "Tata Motors",
-    role: "Full Stack Developer Intern",
+    role: "Software Developer Intern — Full Stack Development",
     description:
-      "Built a Ticket Management System for employee support workflows, helping manage and track support requests for 500+ employees.",
+      "Led a team of 4 interns and built a Ticket Management System for 1000+ employees using Node.js, Express and MongoDB. Worked on backend development, database operations and Git-based collaboration.",
   },
   {
-    period: "2022 — 2026",
-    company: "B.Tech CSE — Data Science",
-    role: "Computer Science Engineering",
+    period: "Aug 2022 — Jul 2026",
+    company: "Dr. B.C. Roy Engineering College",
+    role: "B.Tech — Computer Science Engineering (Data Science)",
     description:
       "Completed my Bachelor of Technology in Computer Science Engineering with a specialization in Data Science.",
   },
@@ -37,12 +37,9 @@ export default function Experience() {
   return (
     <section id="experience" className="border-t border-black/10">
       <div className="mx-auto max-w-6xl px-6 py-32 md:py-40">
-
         {/* Header */}
         <div className="max-w-4xl">
-          <p className="text-sm text-neutral-400">
-            Experience
-          </p>
+          <p className="text-sm text-neutral-400">Experience</p>
 
           <h2 className="mt-6 text-4xl font-medium leading-tight tracking-[-0.04em] sm:text-5xl md:text-6xl">
             My journey so far.
@@ -51,7 +48,6 @@ export default function Experience() {
 
         {/* Experience list */}
         <div className="mt-20 md:mt-28">
-
           {experiences.map((experience, index) => (
             <motion.div
               key={experience.company}
@@ -73,7 +69,6 @@ export default function Experience() {
               }}
               className="grid gap-6 border-t border-black/10 py-10 md:grid-cols-[180px_1fr]"
             >
-
               {/* Period */}
               <div>
                 <p className="text-sm text-neutral-400">
@@ -83,7 +78,6 @@ export default function Experience() {
 
               {/* Content */}
               <div className="max-w-3xl">
-
                 <h3 className="text-2xl font-medium tracking-tight md:text-3xl">
                   {experience.company}
                 </h3>
@@ -95,14 +89,10 @@ export default function Experience() {
                 <p className="mt-5 text-base leading-7 text-neutral-500 md:text-lg md:leading-8">
                   {experience.description}
                 </p>
-
               </div>
-
             </motion.div>
           ))}
-
         </div>
-
       </div>
     </section>
   );
